@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Filmes</title>
+    <script src="js/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+
+        <h1>Cadastro de filmes</h1>
+
+        <form>
+
+            <label for="nomeFilme">Nome Filme: </label>
+            <input name="nomeFilme" type="text" v-model="form.nomeFilme">
+
+
+            <label for="anoLancamento">Ano Lançamento: </label>
+            <input name="anoLancamento " type="text" v-model="form.anoLancamento">
+
+            <label for="generoFilme">Gênero filme: </label>
+            <input name="generoFilme" type="text" v-model="form.generoFilme">
+
+
+            <input type="button" value="Cadastrar" @click="adicionarFilme">
+        </form>
+
+        <!-- <span>
+            {{form.nomeFilme}} - {{form.anoLancamento}} - {{form.generoFilme}}
+
+        </span> -->
+    
+
+        <div>
+            <table class="table">
+                <thead>
+
+                    <th>Nome</th>
+                    <th>Ano Lançamento</th>
+                    <th>Gênero Filme</th>
+                    <th>Ações</th>
+                </thead>
+                <tbody>
+                    <tr v-for="filme in filmes">
+                        <td>{{filme.nomeFilme}}</td>
+                        <td>{{filme.anoLancamento}}</td>
+                        <td>{{filme.generoFilme}}</td>
+                        <td>
+                            <button class="danger" @click="apagarFilme(filme)">Apagar</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+
+        </div>
+
+    </div>
+
+    <script>
+        var app = new Vue ({
+            el: "#app",
+            data:{
+                form:{
+                    nomeFilme:'',
+                    anoLancamento:'',
+                    generoFilme:''
+                },
+                filmes: []
+                   
+                
+            },
+            methods: {
+                limpaFormulario:function(){
+                    this.form= {
+                        nomeFilme:'',
+                        anoLancamento:'',
+                        generoFilme:''
+                    }
+                },
+                adicionarFilme: function(){
+                    //console.log(this.form)
+                    this.filmes.push(this.form)
+                    this.limpaFormulario()
+                },
+
+                apagarFilme:function(filme) {
+                    var posicao = this.filmes.indexOf(filme)
+                    this.filmes.splice(posicao,1)
+
+                }
+            }
+
+        })
+
+    </script>
+<style>
+    .table {
+        margin-top: 20px ;
+        width: 100%;
+        text-align: left;
+
+    }
+
+    .table th, .table td {
+        border-top:1px solid #ccc;
+
+    }
+
+    .table th:last-child, .table td:last-child {
+        text-align: right;
+
+    }
+    
+    .danger{
+        background-color: #9c27b0;
+        border-color:  #9c27b0;
+        color: #eee;
+    }
+
+    input {
+        display: block;
+    }
+
+    input[type=button]{
+        background-color: grey;
+        margin-top: 20px;
+        border-color: grey;
+        color:#eeee;
+    }
+
+</style>
+
+</body>
+
+</html>
